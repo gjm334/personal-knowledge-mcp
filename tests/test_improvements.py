@@ -14,6 +14,7 @@ from db_manager import DatabaseManager, WorkspaceError, concept_id, SCHEMA
 
 class ImprovementTests(unittest.TestCase):
     def setUp(self):
+        (Path(__file__).resolve().parents[1] / "local_data").mkdir(exist_ok=True)
         self.temporary = tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1] / "local_data")
         self.addCleanup(self.temporary.cleanup)
         self.db = DatabaseManager(Path(self.temporary.name))

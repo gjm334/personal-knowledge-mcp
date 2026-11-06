@@ -11,6 +11,7 @@ from db_manager import DatabaseManager, WorkspaceError
 
 class LearningTests(unittest.TestCase):
     def setUp(self):
+        (Path(__file__).resolve().parents[1] / "local_data").mkdir(exist_ok=True)
         self.tmp = tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1] / "local_data")
         self.addCleanup(self.tmp.cleanup)
         self.db = DatabaseManager(Path(self.tmp.name))

@@ -14,3 +14,5 @@
 服务保证状态/证据门槛；不能独立认证回答来源、宿主评分或宿主是否一定遵守调用指令。
 
 发布副本实测：80 项测试全部通过（11.898 秒）；`pip check` 返回 No broken requirements found。
+
+Fresh archive verification: extracted into a new directory without local_data; 80 tests passed in 12.441 seconds. Test fixtures now create their own scratch parent directory.
