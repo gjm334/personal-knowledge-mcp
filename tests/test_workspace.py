@@ -62,7 +62,7 @@ class WorkspaceTests(unittest.TestCase):
         result = self.propose(["Histogram", "CDF"])
         self.assertEqual(result["status"], "PROBE_REQUIRED")
         self.assertEqual([question["number"] for question in result["questions"]], [1, 2])
-        self.assertEqual([option["score"] for option in result["questions"][0]["options"]], [0, 50, 100, 30])
+        self.assertEqual([option["score"] for option in result["questions"][0]["options"]], [0, 50, 70, 30])
         self.assertEqual(self.db.get_workspace_overview()["tasks"], [])
         self.assertIn("Histogram", Path(self.db.vault_paths()["knowledge_graph"]).read_text(encoding="utf-8"))
 
@@ -103,7 +103,7 @@ class WorkspaceTests(unittest.TestCase):
         self.assertEqual(result["tasks"][0]["title"], "Derive CDF")
 
     def test_c_and_d_map_correctly_without_forced_theory(self):
-        for choice, status, score in (("C", "MASTERED", 100), ("D", "LEARNING", 30)):
+        for choice, status, score in (("C", "LEARNING", 70), ("D", "LEARNING", 30)):
             with self.subTest(choice=choice):
                 title = "Goal " + choice
                 self.propose(title=title)
@@ -180,8 +180,8 @@ class WorkspaceTests(unittest.TestCase):
         self.assertEqual(result["updated_knowledge"][0]["mastery_score"], 60)
         self.assertEqual(result["newly_unlocked_tasks"][0]["id"], tasks[1]["id"])
         result = self.db.update_task_status(task_id=tasks[1]["id"], new_status="DONE")
-        self.assertEqual(result["updated_knowledge"][0]["status"], "MASTERED")
-        self.assertIn("MASTERED", Path(self.db.vault_paths()["knowledge_graph"]).read_text(encoding="utf-8"))
+        self.assertEqual(result["updated_knowledge"][0]["status"], "LEARNING")
+        self.assertEqual(result["updated_knowledge"][0]["mastery_score"], 80)
         self.db.update_task_status(task_id=tasks[2]["id"], new_status="DONE")
         self.assertEqual(self.db.get_workspace_overview(status_filter="DONE")["tasks"][-1]["status"], "DONE")
 

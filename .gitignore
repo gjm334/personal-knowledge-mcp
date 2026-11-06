@@ -10,3 +10,5 @@ __pycache__/
 *.log
 mcp_config.json
 codex_config.toml
+
+dist/
