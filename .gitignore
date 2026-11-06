@@ -1,0 +1,12 @@
+local_data/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite-*
+*.log
+mcp_config.json
+codex_config.toml
